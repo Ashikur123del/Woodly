@@ -45,9 +45,9 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
 
   return (
     <div className="text-white p-4 md:p-20 font-sans flex flex-col items-center justify-center">
-      <div className="">
+      {/* <div className="">
         <Image src={logo4} className="w-[1152px] h-[200px]" alt="logo"></Image>
-      </div>
+      </div> */}
       <div className="text-center mb-10">
         <p className="text-[10px] tracking-[0.3em] text-yellow-500/80 uppercase font-light">WOODLY PREMIUM</p>
         <h1 className="text-4xl md:text-5xl font-serif mt-2 text-[#e5c277] tracking-tight">স্মৃতি চিরন্তন</h1>
