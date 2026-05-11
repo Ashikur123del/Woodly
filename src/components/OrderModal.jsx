@@ -42,49 +42,44 @@ const OrderModal = ({ isOpen, onClose, selectedType }) => {
     ],
   };
 
-  // handleSubmit এর ভেতর এই পরিবর্তনটি নিশ্চিত করুন:
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  const formData = new FormData(e.currentTarget);
-  const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
 
-  const orderPayload = {
-    ...data,
-    orderType: selectedType,
-    totalAmount: 999,
-    status: "pending",
-    // wedding হলে eventDate ই যাবে, birth হলে birthDate যাবে। 
-    // তবে backend এ একই নামে রাখতে চাইলে এখানে কন্ডিশন দিতে পারেন।
-    createdAt: new Date().toISOString(),
-  };
+    const orderPayload = {
+      ...data,
+      orderType: selectedType,
+      totalAmount: 999,
+      status: "pending",
+      createdAt: new Date().toISOString(),
+    };
 
-  try {
-    const response = await fetch(`https://woodly-server-fayw.vercel.app/orders`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderPayload),
-    });
+    try {
+      const response = await fetch(`https://woodly-server-fayw.vercel.app/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderPayload),
+      });
 
-    if (response.ok) {
-      toast.success("অর্ডারটি সফলভাবে জমা হয়েছে!");
-      e.target.reset();
-      // অর্ডার হওয়ার পর লিস্ট পেজ রিফ্রেশ করার জন্য window reload দিতে পারেন 
-      // অথবা প্যারেন্ট থেকে loadOrders কল করতে পারেন।
-      setTimeout(() => {
-        onClose();
-        window.location.reload(); 
-      }, 1500);
-    } else {
-      toast.error("সার্ভারে সমস্যা হয়েছে।");
+      if (response.ok) {
+        toast.success("অর্ডারটি সফলভাবে জমা হয়েছে!");
+        // ফিক্স: সরাসরি reload না করে ১.৫ সেকেন্ড পর ক্লোজ এবং রিলোড করা ভালো
+        setTimeout(() => {
+          onClose();
+          window.location.reload(); 
+        }, 1500);
+      } else {
+        toast.error("সার্ভারে সমস্যা হয়েছে।");
+      }
+    } catch (error) {
+      toast.error("সার্ভার কানেক্ট হতে পারছে না।");
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    toast.error("সার্ভার কানেক্ট হতে পারছে না।");
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <>
@@ -92,16 +87,15 @@ const handleSubmit = async (e) => {
       <AnimatePresence>
         {isOpen && (
           <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
-            {/* Backdrop */}
+            {/* ফিক্স: handleClose এর বদলে onClose ব্যবহার করা হয়েছে */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={handleClose}
+              onClick={onClose}
               className="absolute inset-0 bg-[#636CCB]/80 backdrop-blur-sm"
             />
 
-            {/* Modal Content */}
             <motion.div
               initial={{ scale: 0.95, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -116,7 +110,8 @@ const handleSubmit = async (e) => {
                   {selectedType === "death" && <FaPray className="text-yellow-500" />}
                   <span className="text-white">{selectedType} - Order Form</span>
                 </div>
-                <button onClick={handleClose} className="p-2 hover:bg-white/5 rounded-full text-gray-400 transition-colors">
+                {/* ফিক্স: handleClose এর বদলে onClose */}
+                <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full text-gray-400 transition-colors">
                   <FaTimes size={20} />
                 </button>
               </div>
