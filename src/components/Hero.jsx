@@ -49,18 +49,18 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
         <Image src={logo4} className="w-[1152px] h-[200px]" alt="logo"></Image>
       </div> */}
       <div className="text-center mb-10">
-        <p className="text-[10px] tracking-[0.3em] text-yellow-500/80 uppercase font-light">WOODLY PREMIUM</p>
-        <h1 className="text-4xl md:text-5xl font-serif mt-2 text-[#e5c277] tracking-tight">স্মৃতি চিরন্তন</h1>
+        <p className="text-[10px] tracking-[0.3em] text-[#FFDE42] uppercase font-light">WOODLY PREMIUM</p>
+        <h1 className="text-4xl md:text-5xl font-serif mt-2 text-[#FFDE42] tracking-tight">স্মৃতি চিরন্তন</h1>
       </div>
 
       <div className="max-w-6xl w-full bg-[#0d1b26] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-[40px] overflow-hidden grid md:grid-cols-2 gap-0">
         
         {/* Left Side (Preview) */}
-        <div className="relative p-12 bg-gradient-to-br from-[#cbd5e1] to-[#94a3b8] flex flex-col items-center justify-center min-h-[500px]">
-          <div className="absolute top-6 left-6 w-12 h-12 border-t-4 border-l-4 border-black/80"></div>
-          <div className="absolute top-6 right-6 w-12 h-12 border-t-4 border-r-4 border-black/80"></div>
-          <div className="absolute bottom-6 left-6 w-12 h-12 border-b-4 border-l-4 border-black/80"></div>
-          <div className="absolute bottom-6 right-6 w-12 h-12 border-b-4 border-r-4 border-black/80"></div>
+        <div className="relative p-12 bg-gradient-to-br from-[#2FA084] to-[#94a3b8] flex flex-col items-center justify-center min-h-[500px]">
+          <div className="absolute top-6 left-6 w-12 h-12 border-t-4 border-l-4 border-[#3ABEF9]"></div>
+          <div className="absolute top-6 right-6 w-12 h-12 border-t-4 border-r-4 border-[#3ABEF9]"></div>
+          <div className="absolute bottom-6 left-6 w-12 h-12 border-b-4 border-l-4 border-[#3ABEF9]"></div>
+          <div className="absolute bottom-6 right-6 w-12 h-12 border-b-4 border-r-4 border-[#3ABEF9]"></div>
 
           <AnimatePresence mode="wait">
             <motion.div
@@ -70,7 +70,7 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
               exit={{ opacity: 0, x: 20 }}
               className="flex flex-col items-center w-full"
             >
-              <p className="text-center text-black font-bold text-xl md:text-2xl mb-10 px-6 leading-snug italic">
+              <p className="text-center text-white font-bold text-xl md:text-2xl mb-10 px-6 leading-snug italic">
                 {data.quote}
               </p>
               <div className="relative w-full max-w-[480px] shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
@@ -89,10 +89,10 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
         </div>
 
         {/* Right Side (Content) */}
-        <div className="p-10 md:p-16 flex flex-col justify-center bg-[#0d1b26]">
+        <div className="p-10 md:p-16 flex flex-col justify-center bg-[#636CCB]">
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-white mb-3">আপনার বিশেষ দিনটি খোদাই করুন</h2>
-            <p className="text-slate-400 text-sm leading-relaxed">
+            <p className="text-slate-200 text-sm leading-relaxed">
               প্রিমিয়াম লেজার-এনগ্রেভড কার্ডের উপর আপনার জীবনের সেরা মুহূর্তগুলো আজীবন সংরক্ষণ করুন।
             </p>
           </div>
@@ -106,14 +106,14 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
                   onClick={() => setSelectedTab(tab.key)}
                   className={`flex flex-col items-center justify-center p-3 rounded-2xl border-2 transition-all duration-300 ${
                     selectedTab === tab.key
-                      ? "border-yellow-500 bg-yellow-500/10 scale-105 shadow-lg shadow-yellow-500/20"
-                      : "border-slate-800 bg-[#16252f] hover:border-slate-600"
+                      ? "border-yellow-500 bg-[#3C467B] scale-105 shadow-lg shadow-yellow-500/20"
+                      : "border-slate-200 bg-[#3C467B] hover:border-slate-600"
                   }`}
                 >
                   <div className="w-14 h-14 flex items-center justify-center rounded-full border border-white/10 mb-2 overflow-hidden bg-white"> 
                     <Image src={tab.icon} alt={tab.title} width={30} height={30} className="object-contain" />
                   </div>
-                  <span className={`text-[10px] font-bold uppercase ${selectedTab === tab.key ? "text-white" : "text-slate-500"}`}>
+                  <span className={`text-[10px] font-bold uppercase ${selectedTab === tab.key ? "text-white" : "text-slate-200"}`}>
                     {tab.title}
                   </span>
                 </button>
@@ -123,12 +123,12 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
 
           <div className="flex justify-between items-center p-5 bg-black/40 rounded-2xl border border-white/5 mb-6 shadow-inner">
             <span className="text-slate-400 text-sm">মূল্য (৳)</span>
-            <span className="text-2xl font-bold text-[#e5c277]">990.00 BDT</span>
+            <span className="text-2xl font-bold text-[#FFDE42]">990.00 BDT</span>
           </div>
 
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="w-full bg-[#d4a34d] hover:bg-[#b88a3e] text-black font-black h-16 rounded-2xl text-lg flex items-center justify-center gap-2 shadow-xl transition-all active:scale-95 mb-6 group"
+            className="w-full bg-[#FFDE42] hover:bg-[#d4b414] text-gray-700 font-black h-16 rounded-2xl text-lg flex items-center justify-center gap-2 shadow-xl transition-all active:scale-95 mb-6 group"
           >
             অর্ডার করুন <ArrowRight className="text-2xl group-hover:translate-x-1 transition-transform" />
           </button>

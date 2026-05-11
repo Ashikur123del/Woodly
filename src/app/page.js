@@ -8,7 +8,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <main className="bg-[#0B1218]">
+    <main className="bg-[#50589C]">
       <HeroPage 
         selectedTab={selectedTab} 
         setSelectedTab={setSelectedTab} 
