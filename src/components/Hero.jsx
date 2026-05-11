@@ -10,26 +10,26 @@ import weddingImg from "@/assets/logo-1.jpeg";
 import birthImg from "@/assets/logo-2.jpeg";
 import deathImg from "@/assets/logo-3.jpeg";
 import { FaRegStar } from "react-icons/fa";
-import logo4 from '@/assets/logo-4.jpg'
+import SliderLogo from "./SliderLogo";
 
 const contentData = {
   wedding: {
     tabTitle: "Wedding",
-    quote: "“বিবাহ শুধুমাত্র একটি চুক্তি নয়— এটি দুটি মনের এক চিরন্তন বন্ধন, যা নতুন এক জীবনের সূচনা করে।”",
+    quote: "“বিবাহ শুধুমাত্র একটি চুক্তি নয়— এটি দুটি মনের এক চিরন্তন বন্ধন।”",
     image: weddingImg,
-    badgeColor: "border-pink-500 text-pink-400",
+    badgeColor: "border-pink-500 text-pink-400 shadow-pink-500/20",
   },
   birth: {
     tabTitle: "Birth",
-    quote: "“একটি শিশুর জন্ম মানেই হলো নতুন আশা, নতুন স্বপ্ন এবং পৃথিবীতে ভালোবাসার নতুন এক অধ্যায়ের সূচনা।”",
+    quote: "“একটি শিশুর জন্ম মানেই হলো নতুন আশা এবং ভালোবাসার সূচনা।”",
     image: birthImg,
-    badgeColor: "border-blue-500 text-blue-400",
+    badgeColor: "border-blue-500 text-blue-400 shadow-blue-500/20",
   },
   death: {
     tabTitle: "Death",
-    quote: "“ এই নামটা শুধু একটা নাম না— এই নামটার সাথে জড়িয়ে আছে একটা পুরো জীবন। ”",
+    quote: "“এই নামটার সাথে জড়িয়ে আছে একটা পুরো জীবন এবং স্মৃতি।”",
     image: deathImg, 
-    badgeColor: "border-yellow-500/50 text-yellow-500",
+    badgeColor: "border-yellow-500/50 text-yellow-500 shadow-yellow-500/20",
   }
 };
 
@@ -44,105 +44,138 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
   ];
 
   return (
-    <div className="text-white p-4 md:p-20 font-sans flex flex-col items-center justify-center">
-      {/* <div className="">
-        <Image src={logo4} className="w-[1152px] h-[200px]" alt="logo"></Image>
-      </div> */}
-      <div className="text-center mb-10">
+    <div className="text-white p-4 md:py-6 md:px-20 font-sans flex flex-col items-center justify-center">
+      
+      <div className="text-center mb-6">
         <p className="text-[10px] tracking-[0.3em] text-[#FFDE42] uppercase font-light">WOODLY PREMIUM</p>
-        <h1 className="text-4xl md:text-5xl font-serif mt-2 text-[#FFDE42] tracking-tight">স্মৃতি চিরন্তন</h1>
+        <h1 className="text-3xl md:text-4xl font-serif mt-1 text-[#FFDE42] tracking-tight">স্মৃতি চিরন্তন</h1>
+        <SliderLogo />
       </div>
 
-      <div className="max-w-6xl w-full bg-[#0d1b26] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-[40px] overflow-hidden grid md:grid-cols-2 gap-0">
+      {/* Main Card - Hover এ হালকা স্কেল হবে */}
+      <motion.div 
+        whileHover={{ scale: 1.01 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-6xl w-full bg-[#0d1b26] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-[30px] overflow-hidden grid md:grid-cols-2 gap-0 group/main"
+      >
         
         {/* Left Side (Preview) */}
-        <div className="relative p-12 bg-gradient-to-br from-[#2FA084] to-[#94a3b8] flex flex-col items-center justify-center min-h-[500px]">
-          <div className="absolute top-6 left-6 w-12 h-12 border-t-4 border-l-4 border-[#3ABEF9]"></div>
-          <div className="absolute top-6 right-6 w-12 h-12 border-t-4 border-r-4 border-[#3ABEF9]"></div>
-          <div className="absolute bottom-6 left-6 w-12 h-12 border-b-4 border-l-4 border-[#3ABEF9]"></div>
-          <div className="absolute bottom-6 right-6 w-12 h-12 border-b-4 border-r-4 border-[#3ABEF9]"></div>
+        <div className="relative p-8 bg-gradient-to-br from-[#2FA084] to-[#94a3b8] flex flex-col items-center justify-center min-h-[400px] md:min-h-[450px] overflow-hidden">
+          {/* Animated Corners */}
+          <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#3ABEF9] group-hover/main:scale-110 transition-transform"></div>
+          <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#3ABEF9] group-hover/main:scale-110 transition-transform"></div>
+          <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-[#3ABEF9] group-hover/main:scale-110 transition-transform"></div>
+          <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#3ABEF9] group-hover/main:scale-110 transition-transform"></div>
 
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedTab}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              className="flex flex-col items-center w-full"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4 }}
+              className="flex flex-col items-center w-full z-10"
             >
-              <p className="text-center text-white font-bold text-xl md:text-2xl mb-10 px-6 leading-snug italic">
+              <p className="text-center text-white font-bold text-lg md:text-xl mb-6 px-4 leading-tight italic drop-shadow-md">
                 {data.quote}
               </p>
-              <div className="relative w-full max-w-[480px] shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
-                <div className="bg-[#0b1a26] p-3 rounded-sm border-[10px] border-[#1e293b]">
+              <div className="relative w-full max-w-[350px] group/img">
+                <div className="bg-[#0b1a26] p-2 rounded-sm border-[6px] border-[#1e293b] shadow-2xl transition-transform duration-500 group-hover/img:rotate-2 group-hover/img:scale-105">
                   <Image src={data.image} alt="Product" priority className="w-full h-auto object-contain aspect-square" />
                 </div>
               </div>
             </motion.div>
           </AnimatePresence>
 
-          <div className="absolute bottom-10 left-10">
-            <div className={`flex items-center gap-2 bg-[#05111a] border ${data.badgeColor} px-4 py-1.5 rounded-full text-xs`}>
-              <span><FaRegStar /></span> {data.tabTitle}
+          <div className="absolute bottom-6 left-6">
+            <div className={`flex items-center gap-2 bg-[#05111a] border backdrop-blur-sm ${data.badgeColor} px-3 py-1 rounded-full text-[10px] font-bold shadow-lg`}>
+              <span><FaRegStar className="animate-pulse" /></span> {data.tabTitle}
             </div>
           </div>
         </div>
 
         {/* Right Side (Content) */}
-        <div className="p-10 md:p-16 flex flex-col justify-center bg-[#636CCB]">
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-white mb-3">আপনার বিশেষ দিনটি খোদাই করুন</h2>
-            <p className="text-slate-200 text-sm leading-relaxed">
+        <div className="p-8 md:p-12 flex flex-col justify-center bg-[#636CCB] relative">
+          <div className="mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">আপনার বিশেষ দিনটি খোদাই করুন</h2>
+            <p className="text-slate-200 text-xs leading-relaxed opacity-90">
               প্রিমিয়াম লেজার-এনগ্রেভড কার্ডের উপর আপনার জীবনের সেরা মুহূর্তগুলো আজীবন সংরক্ষণ করুন।
             </p>
           </div>
 
-          <div className="mb-10">
-            <label className="text-yellow-500 text-xs font-bold uppercase tracking-wider mb-4 block">ডিজাইন নির্বাচন করুন</label>
-            <div className="grid grid-cols-3 gap-4">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.key}
-                  onClick={() => setSelectedTab(tab.key)}
-                  className={`flex flex-col items-center justify-center p-3 rounded-2xl border-2 transition-all duration-300 ${
-                    selectedTab === tab.key
-                      ? "border-yellow-500 bg-[#3C467B] scale-105 shadow-lg shadow-yellow-500/20"
-                      : "border-slate-200 bg-[#3C467B] hover:border-slate-600"
-                  }`}
-                >
-                  <div className="w-14 h-14 flex items-center justify-center rounded-full border border-white/10 mb-2 overflow-hidden bg-white"> 
-                    <Image src={tab.icon} alt={tab.title} width={30} height={30} className="object-contain" />
-                  </div>
-                  <span className={`text-[10px] font-bold uppercase ${selectedTab === tab.key ? "text-white" : "text-slate-200"}`}>
-                    {tab.title}
-                  </span>
-                </button>
-              ))}
+          {/* Design Selection Tabs */}
+         {/* ডিজাইন সিলেকশন ট্যাব সেকশন */}
+<div className="mb-6">
+  <label className="text-yellow-400 text-[10px] font-bold uppercase tracking-wider mb-3 block">
+    ডিজাইন নির্বাচন করুন
+  </label>
+  <div className="grid grid-cols-3 gap-3">
+    {tabs.map((tab) => (
+      <motion.button
+        key={tab.key}
+        whileHover={{ 
+          scale: 1.1, // হোভার করলে ১০% বড় হবে
+          boxShadow: "0px 10px 20px rgba(255, 222, 66, 0.2)" // হালকা হলুদ শ্যাডো
+        }}
+        whileTap={{ scale: 0.95 }} // ক্লিক করলে সামান্য ছোট হবে
+        onClick={() => setSelectedTab(tab.key)}
+        className={`flex flex-col items-center justify-center p-2 rounded-xl border-2 transition-all duration-300 ${
+          selectedTab === tab.key
+            ? "border-yellow-500 bg-[#3C467B] shadow-lg"
+            : "border-slate-300/20 bg-[#3C467B]/50 hover:border-slate-100"
+        }`}
+      >
+        <div className={`w-10 h-10 flex items-center justify-center rounded-full border mb-1 overflow-hidden transition-all duration-300 ${
+          selectedTab === tab.key 
+            ? "bg-white border-yellow-500 shadow-[0_0_10px_rgba(255,255,255,0.5)]" 
+            : "bg-white/90 border-transparent grayscale hover:grayscale-0"
+        }`}> 
+          <Image 
+            src={tab.icon} 
+            alt={tab.title} 
+            width={24} 
+            height={24} 
+            className="object-contain" 
+          />
+        </div>
+        <span className={`text-[9px] font-extrabold uppercase tracking-tighter ${
+          selectedTab === tab.key ? "text-yellow-400" : "text-slate-300"
+        }`}>
+          {tab.title}
+        </span>
+      </motion.button>
+    ))}
+  </div>
+</div>
+
+          {/* Price Tag */}
+          <div className="flex justify-between items-center p-4 bg-black/30 backdrop-blur-md rounded-xl border border-white/5 mb-6 shadow-inner hover:bg-black/40 transition-colors">
+            <span className="text-slate-400 text-xs font-medium uppercase tracking-widest">মূল্য</span>
+            <div className="text-right">
+                <span className="text-xl font-black text-[#FFDE42]">990.00 BDT</span>
+                <p className="text-[8px] text-slate-300 opacity-60 uppercase">VAT Included</p>
             </div>
           </div>
 
-          <div className="flex justify-between items-center p-5 bg-black/40 rounded-2xl border border-white/5 mb-6 shadow-inner">
-            <span className="text-slate-400 text-sm">মূল্য (৳)</span>
-            <span className="text-2xl font-bold text-[#FFDE42]">990.00 BDT</span>
-          </div>
-
+      
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="w-full bg-[#FFDE42] hover:bg-[#d4b414] text-gray-700 font-black h-16 rounded-2xl text-lg flex items-center justify-center gap-2 shadow-xl transition-all active:scale-95 mb-6 group"
+            className="w-full bg-[#FFDE42] hover:bg-white text-gray-900 font-black h-14 rounded-xl text-md flex items-center justify-center gap-2 shadow-[0_10px_20px_rgba(255,222,66,0.2)] transition-all active:scale-95 mb-4 group/btn"
           >
-            অর্ডার করুন <ArrowRight className="text-2xl group-hover:translate-x-1 transition-transform" />
+            অর্ডার করুন 
+            <ArrowRight className="text-xl group-hover/btn:translate-x-2 transition-transform duration-300" />
           </button>
 
-          <div className="grid grid-cols-2 gap-4">
-            <button className="flex items-center justify-center gap-2 bg-[#1d4ed8]/10 text-[#60a5fa] py-4 rounded-2xl text-xs font-bold border border-[#1d4ed8]/20 hover:bg-[#1d4ed8]/20">
-              <LuMessageSquareMore className="text-lg"/> Messenger
+          <div className="grid grid-cols-2 gap-3">
+            <button className="flex items-center justify-center gap-2 bg-white/5 text-white py-3 rounded-xl text-[11px] font-bold border border-white/10 hover:bg-[#0084FF] hover:border-[#0084FF] transition-all duration-300">
+              <LuMessageSquareMore className="text-base"/> Messenger
             </button>
-            <button className="flex items-center justify-center gap-2 bg-[#15803d]/10 text-[#4ade80] py-4 rounded-2xl text-xs font-bold border border-[#15803d]/20 hover:bg-[#15803d]/20">
-              <SiWhatsapp className="text-lg" /> WhatsApp
+            <button className="flex items-center justify-center gap-2 bg-[#15803d]/10 text-[#4ade80] py-3 rounded-xl text-[11px] font-bold border border-[#15803d]/20 hover:bg-[#25D366] hover:text-white transition-all duration-300">
+              <SiWhatsapp className="text-base" /> WhatsApp
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
