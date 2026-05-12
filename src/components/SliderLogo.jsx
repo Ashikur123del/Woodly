@@ -1,10 +1,11 @@
-
 "use client";
 import React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 
-// আপনার ইমপোর্ট করা লোগোগুলো
+import "swiper/css";
+
 import logo1 from "@/assets/-1.jpeg";
 import logo2 from "@/assets/-2.jpeg";
 import logo3 from "@/assets/-3.jpeg";
@@ -14,37 +15,40 @@ const SliderLogo = () => {
   const logos = [logo1, logo2, logo3, logo4, logo1, logo2, logo3, logo4];
 
   return (
-    <div className="overflow-hidden max-w-6xl mx-auto">
-     
-      <div className="flex overflow-hidden relative group">
-        <motion.div
-          className="flex flex-none gap-16 items-center"
-          animate={{
-            x: ["0%", "-50%"], 
-          }}
-          transition={{
-            ease: "linear",
-            duration: 20, 
-            repeat: Infinity,
-          }}
-        >
-         
-          {[...logos, ...logos].map((logo, index) => (
-            <div key={index} className="flex-none w-32 md:w-48  transition-all duration-300">
-              <Image
-                src={logo}
-                alt={`Logo ${index}`}
-                className="h-16 w-auto object-contain mx-auto"
-              />
-            </div>
+    <section className="pt-2">
+      <div className="max-w-6xl mx-auto px-4">
+        <Swiper
+  modules={[Autoplay]}
+  spaceBetween={30}
+  slidesPerView={1}   // default (mobile)
+  loop={true}
+  speed={4000}
+  autoplay={{
+    delay: 0,
+    disableOnInteraction: false,
+  }}
+  breakpoints={{
+    640: { slidesPerView: 1 }, // small device
+    768: { slidesPerView: 2 }, // tablet
+    1024: { slidesPerView: 1 }, // large screen
+  }}
+>
+          {logos.map((logo, index) => (
+            <SwiperSlide key={index}>
+              {/* fixed height container */}
+              <div className="relative w-full h-30 flex items-center justify-center">
+                <Image
+                  src={logo}
+                  alt={`Logo ${index + 1}`}
+                  fill
+                  className="object-center rounded-sm"
+                />
+              </div>
+            </SwiperSlide>
           ))}
-        </motion.div>
-
-        {/* সাইডে হালকা শ্যাডো ইফেক্ট (ঐচ্ছিক) */}
-        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white to-transparent z-10" />
+        </Swiper>
       </div>
-    </div>
+    </section>
   );
 };
 
