@@ -18,24 +18,23 @@ const SliderLogo = () => {
     <section className="pt-2">
       <div className="max-w-6xl mx-auto px-4">
         <Swiper
-  modules={[Autoplay]}
-  spaceBetween={30}
-  slidesPerView={1}   // default (mobile)
-  loop={true}
-  speed={4000}
-  autoplay={{
-    delay: 0,
-    disableOnInteraction: false,
-  }}
-  breakpoints={{
-    640: { slidesPerView: 1 }, // small device
-    768: { slidesPerView: 2 }, // tablet
-    1024: { slidesPerView: 1 }, // large screen
-  }}
->
+          modules={[Autoplay]}
+          spaceBetween={30}
+          slidesPerView={1}
+          loop={true}
+          speed={5000}
+          autoplay={{
+            delay: 0,
+            disableOnInteraction: false,
+          }}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 1 },
+          }}
+        >
           {logos.map((logo, index) => (
             <SwiperSlide key={index}>
-              {/* fixed height container */}
               <div className="relative w-full h-30 flex items-center justify-center">
                 <Image
                   src={logo}
