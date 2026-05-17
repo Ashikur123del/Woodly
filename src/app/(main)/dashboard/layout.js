@@ -33,6 +33,7 @@ export default function DashboardLayout({ children }) {
   }, []);
 
   useEffect(() => { 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadCount(); 
   }, [loadCount]);
 
