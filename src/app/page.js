@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react"; // এই লাইনটি মিসিং ছিল
+import React, { useState } from "react"; 
 import HeroPage from "@/components/Hero";
 import FeaturesWithAbout from "@/components/FeaturesSection";
 

@@ -3,8 +3,8 @@ import Sidebar from "@/components/Sidebar";
 import React, { useState, useEffect, useCallback } from "react";
 import { MdMenu } from "react-icons/md";
 
-export default function DashboardLayout({ children }) {
 
+export default function DashboardLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [totalOrders, setTotalOrders] = useState(0);
 
@@ -35,7 +35,7 @@ export default function DashboardLayout({ children }) {
   useEffect(() => { 
     // eslint-disable-next-line react-hooks/set-state-in-effect
     loadCount(); 
-  }, [loadCount]);
+  }, [loadCount]); 
 
   return (
     <div className="flex h-screen bg-[#030d17] text-slate-200 overflow-hidden font-sans relative">
@@ -71,4 +71,4 @@ export default function DashboardLayout({ children }) {
       </div>
     </div>
   );
-}
+}  
