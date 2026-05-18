@@ -36,7 +36,6 @@ const FeaturesWithAbout = ({ selectedTab, isModalOpen, setIsModalOpen }) => {
   return (
     <section className="bg-[#50589C] py-12 px-4 md:px-10 flex flex-col items-center max-w-6xl mx-auto">
       
-      {/* Section Title */}
       <div className="text-center mb-10">
         <h2 className="text-[#FFDE42] text-2xl md:text-3xl font-black mb-2 tracking-tight">
           কেন স্মৃতি স্মরণিকা আলাদা?
@@ -44,7 +43,6 @@ const FeaturesWithAbout = ({ selectedTab, isModalOpen, setIsModalOpen }) => {
         <div className="w-16 h-1 bg-orange-400 mx-auto rounded-full opacity-60"></div>
       </div>
       
-      {/* Features Grid - scale-105 এবং shadow-2xl যোগ করা হয়েছে */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl w-full mb-14">
         {features.map((item, index) => (
           <Card
@@ -82,7 +80,7 @@ const FeaturesWithAbout = ({ selectedTab, isModalOpen, setIsModalOpen }) => {
         </Card>
       </div>
 
-      {/* Dynamic CTA Button */}
+  
       <div className="w-full max-w-xs">
         <button 
           onClick={() => setIsModalOpen(true)}
@@ -95,7 +93,6 @@ const FeaturesWithAbout = ({ selectedTab, isModalOpen, setIsModalOpen }) => {
         </button>
       </div>
 
-      {/* Order Modal */}
       <OrderModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
