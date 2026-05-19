@@ -119,7 +119,7 @@ const OrderModal = ({ isOpen, onClose, selectedType }) => {
 
                 <div className="w-full h-px bg-white/5"></div>
 
-                {/* ২. ডাইনামিক ফিল্ডস (সবগুলো ফিল্ড এখানে আছে) */}
+            
                 <div className="space-y-4">
                   <h4 className="text-[#FFDE42] text-[10px] font-bold uppercase tracking-[0.2em] opacity-80">প্রোডাক্টের তথ্য</h4>
                   
