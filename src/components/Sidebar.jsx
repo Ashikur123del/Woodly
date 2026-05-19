@@ -59,7 +59,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, totalOrders }) => {
 
           <div>
             <nav className="space-y-1">
-              <Link href="/dashboard/products" onClick={handleLinkClick} className={getLinkClass("/dashboard/products")}>
+              <Link href="/dashboard" onClick={handleLinkClick} className={getLinkClass("/dashboard/products")}>
                 <div className="flex items-center gap-3"><FiBox size={16} /> Product</div>
               </Link>
               <Link href="/dashboard/service" onClick={handleLinkClick} className={getLinkClass("/dashboard/products")}>
@@ -71,15 +71,15 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, totalOrders }) => {
                 <span className="bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">{totalOrders}</span>
               </Link>
 
-              <Link href="/dashboard/returns" onClick={handleLinkClick} className={getLinkClass("/dashboard/returns")}>
+              <Link href="/dashboard" onClick={handleLinkClick} className={getLinkClass("/dashboard/returns")}>
                 <div className="flex items-center gap-3"><FiCornerUpLeft size={16} /> Return Order</div>
               </Link>
 
-              <Link href="/dashboard/reviews" onClick={handleLinkClick} className={getLinkClass("/dashboard/reviews")}>
+              <Link href="/dashboard" onClick={handleLinkClick} className={getLinkClass("/dashboard/reviews")}>
                 <div className="flex items-center gap-3"><FiMessageSquare size={16} /> Review</div>
               </Link>
 
-              <Link href="/dashboard/create-order" onClick={handleLinkClick} className={getLinkClass("/dashboard/create-order")}>
+              <Link href="/dashboard" onClick={handleLinkClick} className={getLinkClass("/dashboard/create-order")}>
                 <div className="flex items-center gap-3"><FiPlusCircle size={16} /> Create Order</div>
               </Link>
             </nav>
