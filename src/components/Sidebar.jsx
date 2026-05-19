@@ -99,4 +99,4 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, totalOrders }) => {
   );
 };
 
-export default Sidebar;
+export default Sidebar; 
