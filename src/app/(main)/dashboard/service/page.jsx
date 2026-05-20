@@ -57,7 +57,6 @@ const Service = () => {
   return (
     <section className="min-h-screen bg-[#020a13] text-slate-300 px-4 py-10 md:px-20">
       
-      {/* Breadcrumb */}
       <div className="text-xs text-slate-400 mb-6 flex items-center gap-2">
         <Link href='/dashboard' className="text-[#FFDE42] font-medium">হোম</Link>
         <span>/</span>
@@ -85,7 +84,8 @@ const Service = () => {
             whileHover={{ y: -3 }}
             transition={{ duration: 0.2 }}
           >
-            <Card className="bg-[#0d1b26] border border-white/10 rounded-xl p-4 group hover:border-[#FFDE42]/30 transition-all duration-300 shadow-xl">
+            <Link href='/dashboard/order-create'>
+                  <Card className="bg-[#0d1b26] border border-white/10 rounded-xl p-4 group hover:border-[#FFDE42]/30 transition-all duration-300 shadow-xl">
               <div className="flex items-center justify-between gap-4">
                 
                 {/* Left Side Image (আপনার দেওয়া সেম সাইজ) */}
@@ -142,6 +142,7 @@ const Service = () => {
 
               </div>
             </Card>
+            </Link>
           </motion.div>
         ))}
       </div>
