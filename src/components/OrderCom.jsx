@@ -181,15 +181,14 @@ const OrderCom = () => {
       });
     }
 
-    // 🛠️ নিখুঁত ডেট ফিল্টার (লোকাল ডেটের লাস্ট অংশ অর্থাৎ দিনের সংখ্যা ম্যাচিং)
     if (selectedDate.trim() !== "") {
-      const targetDay = selectedDate.trim().padStart(2, '0'); // '3' লিখলে যেন '03' এর সাথেও ম্যাচ করে
+      const targetDay = selectedDate.trim().padStart(2, '0'); 
       
       result = result.filter(o => {
-        const actualCreationDate = getLocalDateFromId(o._id); // আউটপুট: YYYY-MM-DD
+        const actualCreationDate = getLocalDateFromId(o._id);
         if (actualCreationDate === "N/A") return false;
         
-        const dayPart = actualCreationDate.split('-')[2]; // বের করবে শুধু 'DD' অংশ
+        const dayPart = actualCreationDate.split('-')[2]; 
         return dayPart === targetDay;
       });
     }
@@ -303,8 +302,6 @@ Status: ${order.status?.toUpperCase() || "PENDING"}`;
             className="w-full h-10 bg-black border border-neutral-800 rounded-xl pl-10 pr-4 text-sm text-white outline-none focus:border-neutral-700 transition-all placeholder-neutral-700"
           />
         </div>
-        
-        {/* 🛠️ আপনার রিকোয়েস্ট অনুযায়ী মডিফাইড টেক্সট সার্চ ইনপুট ফিল্ড */}
         <div className="lg:col-span-4 flex items-center justify-between bg-black border border-neutral-800 rounded-xl px-3 h-10 gap-2 relative">
           <div className="flex items-center gap-2 w-full">
             <span className="text-[10px] text-neutral-500 font-mono uppercase shrink-0">Filter Date:</span>
@@ -447,7 +444,7 @@ Status: ${order.status?.toUpperCase() || "PENDING"}`;
                           <div className="flex items-start gap-1.5 bg-neutral-950 p-1.5 rounded-xl border border-neutral-800" title={order.specialMessage}>
                             <FaRegCommentDots className="text-neutral-600 shrink-0 mt-0.5" size={13} />
                             <p className="line-clamp-2 text-neutral-400 text-[11px] leading-relaxed italic">
-                              "{order.specialMessage}"
+                              {order.specialMessage}
                             </p>
                           </div>
                         ) : (
