@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from '@gravity-ui/icons';
 import { SiWhatsapp } from "react-icons/si";
@@ -34,8 +34,35 @@ const contentData = {
 };
 
 const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
-    
   const data = contentData[selectedTab];
+
+  // 🕒 লাইভ ভিউ কাউন্টার রিকোয়েস্ট (Unexpected Token '<' এরর সেফগার্ডসহ)
+  useEffect(() => {
+    const incrementViewCount = async () => {
+      try {
+        const response = await fetch("https://woodly-server-fayw.vercel.app/views/increment", {
+          method: "POST",
+          cache: "no-store", 
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+
+        if (!response.ok) {
+          const errorHtmlText = await response.text();
+          console.error(`Backend Returned HTML/Error instead of JSON (${response.status}):`, errorHtmlText);
+          return;
+        }
+
+        const resData = await response.json();
+        console.log("View count incremented successfully:", resData);
+      } catch (error) {
+        console.error("Fetch Exception Error:", error);
+      }
+    };
+
+    incrementViewCount();
+  }, []);
 
   const tabs = [
     { key: "wedding", title: "Wedding", icon: weddingImg },
@@ -52,7 +79,7 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
         <SliderLogo />
       </div>
 
-      {/* Main Card - Hover এ হালকা স্কেল হবে */}
+      {/* Main Card */}
       <motion.div 
         whileHover={{ scale: 1.01 }}
         transition={{ duration: 0.5 }}
@@ -61,7 +88,6 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
         
         {/* Left Side (Preview) */}
         <div className="relative p-8 bg-gradient-to-br from-[#2FA084] to-[#94a3b8] flex flex-col items-center justify-center min-h-[400px] md:min-h-[450px] overflow-hidden">
-          {/* Animated Corners */}
           <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#3ABEF9] group-hover/main:scale-110 transition-transform"></div>
           <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#3ABEF9] group-hover/main:scale-110 transition-transform"></div>
           <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-[#3ABEF9] group-hover/main:scale-110 transition-transform"></div>
@@ -81,7 +107,13 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
               </p>
               <div className="relative w-full max-w-[350px] group/img">
                 <div className="bg-[#0b1a26] p-2 rounded-sm border-[6px] border-[#1e293b] shadow-2xl transition-transform duration-500 group-hover/img:rotate-2 group-hover/img:scale-105">
-                  <Image src={data.image} alt="Product" priority className="w-full h-auto object-contain aspect-square" />
+                  <Image 
+                    src={data.image} 
+                    alt="Product" 
+                    priority 
+                    className="w-full object-contain aspect-square" 
+                    style={{ height: "auto" }}
+                  />
                 </div>
               </div>
             </motion.div>
@@ -103,50 +135,50 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
             </p>
           </div>
 
-          {/* Design Selection Tabs */}
-         {/* ডিজাইন সিলেকশন ট্যাব সেকশন */}
-<div className="mb-6">
-  <label className="text-yellow-400 text-[10px] font-bold uppercase tracking-wider mb-3 block">
-    ডিজাইন নির্বাচন করুন
-  </label>
-  <div className="grid grid-cols-3 gap-3">
-    {tabs.map((tab) => (
-      <motion.button
-        key={tab.key}
-        whileHover={{ 
-          scale: 1.1, // হোভার করলে ১০% বড় হবে
-          boxShadow: "0px 10px 20px rgba(255, 222, 66, 0.2)" // হালকা হলুদ শ্যাডো
-        }}
-        whileTap={{ scale: 0.95 }} // ক্লিক করলে সামান্য ছোট হবে
-        onClick={() => setSelectedTab(tab.key)}
-        className={`flex flex-col items-center justify-center p-2 rounded-xl border-2 transition-all duration-300 ${
-          selectedTab === tab.key
-            ? "border-yellow-500 bg-[#3C467B] shadow-lg"
-            : "border-slate-300/20 bg-[#3C467B]/50 hover:border-slate-100"
-        }`}
-      >
-        <div className={`w-10 h-10 flex items-center justify-center rounded-full border mb-1 overflow-hidden transition-all duration-300 ${
-          selectedTab === tab.key 
-            ? "bg-white border-yellow-500 shadow-[0_0_10px_rgba(255,255,255,0.5)]" 
-            : "bg-white/90 border-transparent grayscale hover:grayscale-0"
-        }`}> 
-          <Image 
-            src={tab.icon} 
-            alt={tab.title} 
-            width={24} 
-            height={24} 
-            className="object-contain" 
-          />
-        </div>
-        <span className={`text-[9px] font-extrabold uppercase tracking-tighter ${
-          selectedTab === tab.key ? "text-yellow-400" : "text-slate-300"
-        }`}>
-          {tab.title}
-        </span>
-      </motion.button>
-    ))}
-  </div>
-</div>
+          {/* ডিজাইন সিলেকশন ট্যাব সেকশন */}
+          <div className="mb-6">
+            <label className="text-yellow-400 text-[10px] font-bold uppercase tracking-wider mb-3 block">
+              ডিজাইন নির্বাচন করুন
+            </label>
+            <div className="grid grid-cols-3 gap-3">
+              {tabs.map((tab) => (
+                <motion.button
+                  key={tab.key}
+                  whileHover={{ 
+                    scale: 1.1,
+                    boxShadow: "0px 10px 20px rgba(255, 222, 66, 0.2)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setSelectedTab(tab.key)}
+                  className={`flex flex-col items-center justify-center p-2 rounded-xl border-2 transition-all duration-300 ${
+                    selectedTab === tab.key
+                      ? "border-yellow-500 bg-[#3C467B] shadow-lg"
+                      : "border-slate-300/20 bg-[#3C467B]/50 hover:border-slate-100"
+                  }`}
+                >
+                  <div className={`w-10 h-10 flex items-center justify-center rounded-full border mb-1 overflow-hidden transition-all duration-300 ${
+                    selectedTab === tab.key 
+                      ? "bg-white border-yellow-500 shadow-[0_0_10px_rgba(255,255,255,0.5)]" 
+                      : "bg-white/90 border-transparent grayscale hover:grayscale-0"
+                  }`}> 
+                    <Image 
+                      src={tab.icon} 
+                      alt={tab.title} 
+                      width={24} 
+                      height={24} 
+                      className="object-contain" 
+                      style={{ height: "auto" }}
+                    />
+                  </div>
+                  <span className={`text-[9px] font-extrabold uppercase tracking-tighter ${
+                    selectedTab === tab.key ? "text-yellow-400" : "text-slate-300"
+                  }`}>
+                    {tab.title}
+                  </span>
+                </motion.button>
+              ))}
+            </div>
+          </div>
 
           {/* Price Tag */}
           <div className="flex justify-between items-center p-4 bg-black/30 backdrop-blur-md rounded-xl border border-white/5 mb-6 shadow-inner hover:bg-black/40 transition-colors">
@@ -157,7 +189,6 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
             </div>
           </div>
 
-      
           <button 
             onClick={() => setIsModalOpen(true)}
             className="w-full bg-[#FFDE42] hover:bg-white text-gray-900 font-black h-14 rounded-xl text-md flex items-center justify-center gap-2 shadow-[0_10px_20px_rgba(255,222,66,0.2)] transition-all active:scale-95 mb-4 group/btn"

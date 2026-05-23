@@ -1,5 +1,5 @@
 import React from 'react';
-import OrderCom from "@/components/OrderCom"; // আপনার প্রজেক্ট পাথ অনুযায়ী ইমপোর্ট এডজাস্ট করবেন
+import OrderCom from "@/components/OrderCom"; 
 
 const OrderPage = () => {
   return (

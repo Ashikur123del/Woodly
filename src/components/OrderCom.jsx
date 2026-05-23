@@ -13,9 +13,27 @@ const OrderCom = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("All");
+  
+  // 🛠️ তারিখের সংখ্যা (যেমন: "23") রাখার জন্য স্টেট
   const [selectedDate, setSelectedDate] = useState("");
 
   const statuses = ["All", "NEW", "PROCESSING", "ON HOLD", "COMPLETED", "CANCELLED", "REFUNDED"];
+
+  // 🛠️ মঙ্গোডিবি _id থেকে লোকাল ডেট (YYYY-MM-DD) বের করার হেল্পার ফাংশন
+  const getLocalDateFromId = (id) => {
+    if (!id || id.length !== 24) return "N/A";
+    try {
+      const timestamp = parseInt(id.substring(0, 8), 16) * 1000;
+      const createdDate = new Date(timestamp);
+      
+      // বাংলাদেশের টাইমজোন অফসেট অ্যাডজাস্টমেন্ট
+      const offset = createdDate.getTimezoneOffset() * 60000;
+      const localISOTime = new Date(createdDate.getTime() - offset).toISOString();
+      return localISOTime.split('T')[0]; // রিটার্ন করবে: YYYY-MM-DD
+    } catch (e) {
+      return "N/A";
+    }
+  };
 
   const loadOrders = useCallback(async () => {
     try {
@@ -77,7 +95,6 @@ const OrderCom = () => {
     }
   };
 
-  // Cancel Button এ ক্লিক করলে DB এবং UI আপডেট হয়ে Returns Page-এ নিয়ে যাবে
   const handleCancelOrder = async (e, orderId, generatedId) => {
     e.stopPropagation();
 
@@ -89,12 +106,11 @@ const OrderCom = () => {
       const res = await fetch(`https://woodly-server-fayw.vercel.app/orders/${orderId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "CANCELLED" }) // DB consistency এর জন্য বড় হাতের অক্ষরে পাঠানো ভালো
+        body: JSON.stringify({ status: "CANCELLED" })
       });
 
       if (!res.ok) throw new Error("Failed to cancel order");
 
-      // লোকাল স্টেটও আপডেট করে দেওয়া হলো যাতে রিডাইরেক্টের ঠিক আগে UI ক্লিন থাকে
       setOrders(prevOrders => 
         prevOrders.map(o => o._id === orderId ? { ...o, status: "CANCELLED", orderStatus: "CANCELLED" } : o)
       );
@@ -104,7 +120,6 @@ const OrderCom = () => {
         style: { border: "1px solid #262626", padding: "12px", color: "#fff", background: "#0a0a0a" },
       });
 
-      // Returns পেজে রিডাইরেকশন
       router.push(`/dashboard/returns?id=${orderId}`);
 
     } catch (err) {
@@ -120,7 +135,7 @@ const OrderCom = () => {
     return orders.filter(o => {
       const currentStatus = (o.status || o.orderStatus || "").trim().toLowerCase();
 
-      if (tabName === "NEW") return currentStatus === "pending" || currentStatus === "new";
+      if (tabName === "NEW") return currentStatus === "pending" || currentStatus === "new" || currentStatus === "processing";
       if (tabName === "COMPLETED") return currentStatus === "completed" || currentStatus === "confirmed";
       if (tabName === "PROCESSING") return currentStatus === "processing";
       if (tabName === "ON HOLD") return currentStatus === "on hold" || currentStatus === "onhold" || currentStatus === "hold";
@@ -131,13 +146,15 @@ const OrderCom = () => {
     }).length;
   };
 
+  // 🛠️ মেইন ফিল্টারিং লজিক (ট্যাব, সার্চ এবং নির্দিষ্ট তারিখের সংখ্যা ফিল্টার)
   useEffect(() => {
     let result = [...orders];
+    
     if (activeTab !== "All") {
       result = result.filter(o => {
         const currentStatus = (o.status || o.orderStatus || "").trim().toLowerCase();
 
-        if (activeTab === "NEW") return currentStatus === "pending" || currentStatus === "new";
+        if (activeTab === "NEW") return currentStatus === "pending" || currentStatus === "new" || currentStatus === "processing";
         if (activeTab === "COMPLETED") return currentStatus === "completed" || currentStatus === "confirmed";
         if (activeTab === "PROCESSING") return currentStatus === "processing";
         if (activeTab === "ON HOLD") return currentStatus === "on hold" || currentStatus === "onhold" || currentStatus === "hold";
@@ -151,7 +168,7 @@ const OrderCom = () => {
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase().trim();
       result = result.filter(o => {
-        const orderDate = (o.eventDate || o.birthDate || o.deathDate || "").toLowerCase();
+        const actualCreationDate = getLocalDateFromId(o._id);
 
         return (
           o.customerName?.toLowerCase().includes(query) || 
@@ -159,15 +176,21 @@ const OrderCom = () => {
           o.whatsapp?.includes(query) ||
           o.district?.toLowerCase().includes(query) ||
           o._id?.includes(query) ||
-          orderDate.includes(query)
+          actualCreationDate.includes(query)
         );
       });
     }
 
-    if (selectedDate) {
+    // 🛠️ নিখুঁত ডেট ফিল্টার (লোকাল ডেটের লাস্ট অংশ অর্থাৎ দিনের সংখ্যা ম্যাচিং)
+    if (selectedDate.trim() !== "") {
+      const targetDay = selectedDate.trim().padStart(2, '0'); // '3' লিখলে যেন '03' এর সাথেও ম্যাচ করে
+      
       result = result.filter(o => {
-        const orderDateStr = o.eventDate || o.birthDate || o.deathDate || "";
-        return orderDateStr.substring(0, 10) === selectedDate;
+        const actualCreationDate = getLocalDateFromId(o._id); // আউটপুট: YYYY-MM-DD
+        if (actualCreationDate === "N/A") return false;
+        
+        const dayPart = actualCreationDate.split('-')[2]; // বের করবে শুধু 'DD' অংশ
+        return dayPart === targetDay;
       });
     }
 
@@ -194,7 +217,7 @@ WhatsApp: ${order.whatsapp || "N/A"}
 Email: ${order.email || "N/A"}
 Event Details:
 ${eventDetails || "No Custom Details"}
-Date: ${order.eventDate || order.birthDate || order.deathDate || "N/A"}
+Order Date: ${getLocalDateFromId(order._id)}
 District: ${order.district || "N/A"}
 Address: ${order.deliveryAddress || "N/A"}
 Receiver: ${order.receiverName || "N/A"}
@@ -281,14 +304,16 @@ Status: ${order.status?.toUpperCase() || "PENDING"}`;
           />
         </div>
         
+        {/* 🛠️ আপনার রিকোয়েস্ট অনুযায়ী মডিফাইড টেক্সট সার্চ ইনপুট ফিল্ড */}
         <div className="lg:col-span-4 flex items-center justify-between bg-black border border-neutral-800 rounded-xl px-3 h-10 gap-2 relative">
           <div className="flex items-center gap-2 w-full">
             <span className="text-[10px] text-neutral-500 font-mono uppercase shrink-0">Filter Date:</span>
             <input 
-              type="date" 
+              type="text" 
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="bg-transparent text-xs text-neutral-400 outline-none w-full border-0 p-0 focus:ring-0 cursor-pointer invert-calendar-icon font-mono" 
+              placeholder="e.g., 23"
+              className="bg-transparent text-xs text-white outline-none w-full border-0 p-0 focus:ring-0 font-mono placeholder-neutral-800" 
             />
           </div>
           {selectedDate && (
@@ -338,7 +363,7 @@ Status: ${order.status?.toUpperCase() || "PENDING"}`;
               ) : (
                 filteredOrders.map((order, i) => {
                   const generatedId = order._id ? `ORD-${order._id.substring(0, 10).toUpperCase()}` : `ORD-202605${i}`;
-                  const orderDate = order.eventDate || order.birthDate || order.deathDate || "N/A";
+                  const orderDate = getLocalDateFromId(order._id);
                   const currentStatus = (order.status || order.orderStatus || "pending").trim().toLowerCase();
                   
                   const isPending = currentStatus === "pending" || currentStatus === "new";
@@ -502,7 +527,6 @@ Status: ${order.status?.toUpperCase() || "PENDING"}`;
                             <MdContentCopy size={14} />
                           </button>
                           
-                          {/* ক্যানসেল বাটন ও রিডাইরেকশন ট্রিগার */}
                           {!isCancelled && (
                             <button 
                               onClick={(e) => handleCancelOrder(e, order._id, generatedId)}
@@ -523,7 +547,6 @@ Status: ${order.status?.toUpperCase() || "PENDING"}`;
         </div>
       </div>
 
-      {/* Custom Styles */}
       <style jsx global>{`
         .scrollbar-none::-webkit-scrollbar { display: none; }
         .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
@@ -531,7 +554,6 @@ Status: ${order.status?.toUpperCase() || "PENDING"}`;
         .custom-table-scroll::-webkit-scrollbar-track { background: #000; }
         .custom-table-scroll::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 4px; }
         .custom-table-scroll::-webkit-scrollbar-thumb:hover { background: #262626; }
-        .invert-calendar-icon::-webkit-calendar-picker-indicator { filter: invert(0.5); }
       `}</style>
     </div>
   );
