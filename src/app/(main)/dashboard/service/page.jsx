@@ -6,9 +6,9 @@ import { Card } from "@heroui/react";
 import { motion } from "framer-motion";
 import { FaRegStar } from "react-icons/fa";
 
-import weddingImg from "@/assets/logo-1.jpeg";
-import birthImg from "@/assets/logo-2.jpeg";
-import deathImg from "@/assets/logo-3.jpeg";
+import weddingImg from "@/assets/Wod-1.jpeg";
+import birthImg from "@/assets/Wod-2.jpeg";
+import deathImg from "@/assets/Wod-3.jpeg";
 import Link from "next/link";
 
 const Service = () => {

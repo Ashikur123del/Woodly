@@ -6,9 +6,9 @@ import { ArrowRight } from '@gravity-ui/icons';
 import { SiWhatsapp } from "react-icons/si";
 import { LuMessageSquareMore } from "react-icons/lu";
 
-import weddingImg from "@/assets/logo-1.jpeg"; 
-import birthImg from "@/assets/logo-2.jpeg";
-import deathImg from "@/assets/logo-3.jpeg";
+import weddingImg from "@/assets/Wod-1.jpeg"; 
+import birthImg from "@/assets/Wod-2.jpeg";
+import deathImg from "@/assets/Wod-3.jpeg";
 import { FaRegStar } from "react-icons/fa";
 import SliderLogo from "./SliderLogo";
 
@@ -36,7 +36,7 @@ const contentData = {
 const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
   const data = contentData[selectedTab];
 
-  // 🕒 লাইভ ভিউ কাউন্টার রিকোয়েস্ট (Unexpected Token '<' এরর সেফগার্ডসহ)
+  
   useEffect(() => {
     const incrementViewCount = async () => {
       try {
@@ -105,13 +105,13 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
               <p className="text-center text-white font-bold text-lg md:text-xl mb-6 px-4 leading-tight italic drop-shadow-md">
                 {data.quote}
               </p>
-              <div className="relative w-full max-w-[350px] group/img">
+              <div className="relative w-full max-w-[500px] group/img">
                 <div className="bg-[#0b1a26] p-2 rounded-sm border-[6px] border-[#1e293b] shadow-2xl transition-transform duration-500 group-hover/img:rotate-2 group-hover/img:scale-105">
                   <Image 
                     src={data.image} 
                     alt="Product" 
                     priority 
-                    className="w-full object-contain aspect-square" 
+                    className="w-full object-cover rounded-sm border border-white/20 shadow-lg" 
                     style={{ height: "auto" }}
                   />
                 </div>
@@ -184,8 +184,8 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
           <div className="flex justify-between items-center p-4 bg-black/30 backdrop-blur-md rounded-xl border border-white/5 mb-6 shadow-inner hover:bg-black/40 transition-colors">
             <span className="text-slate-400 text-xs font-medium uppercase tracking-widest">মূল্য</span>
             <div className="text-right">
-                <span className="text-xl font-black text-[#FFDE42]">990.00 BDT</span>
-                <p className="text-[8px] text-slate-300 opacity-60 uppercase">VAT Included</p>
+                <span className="text-xl font-black text-[#FFDE42]">999.00 BDT</span>
+              
             </div>
           </div>
 

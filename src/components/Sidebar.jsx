@@ -79,9 +79,9 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, totalOrders }) => {
                 <div className="flex items-center gap-3"><FiMessageSquare size={16} /> Review</div>
               </Link>
 
-              <Link href="/dashboard//order-create" onClick={handleLinkClick} className={getLinkClass("/dashboard/order-create")}>
+              {/* <Link href="/dashboard//order-create" onClick={handleLinkClick} className={getLinkClass("/dashboard/order-create")}>
                 <div className="flex items-center gap-3"><FiPlusCircle size={16} /> Create Order</div>
-              </Link>
+              </Link> */}
             </nav>
           </div>
         </div>
