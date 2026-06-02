@@ -79,14 +79,13 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
         <SliderLogo />
       </div>
 
-      {/* Main Card */}
       <motion.div 
         whileHover={{ scale: 1.01 }}
         transition={{ duration: 0.5 }}
         className="max-w-6xl w-full bg-[#0d1b26] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] rounded-[30px] overflow-hidden grid md:grid-cols-2 gap-0 group/main"
       >
         
-        {/* Left Side (Preview) */}
+     
         <div className="relative p-8 bg-gradient-to-br from-[#2FA084] to-[#94a3b8] flex flex-col items-center justify-center min-h-[400px] md:min-h-[450px] overflow-hidden">
           <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#3ABEF9] group-hover/main:scale-110 transition-transform"></div>
           <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#3ABEF9] group-hover/main:scale-110 transition-transform"></div>
@@ -119,7 +118,7 @@ const HeroPage = ({ selectedTab, setSelectedTab, setIsModalOpen }) => {
             </motion.div>
           </AnimatePresence>
 
-          <div className="absolute bottom-6 left-6">
+          <div className="absolute bottom-4 md:bottom-6 left-6 z-50">
             <div className={`flex items-center gap-2 bg-[#05111a] border backdrop-blur-sm ${data.badgeColor} px-3 py-1 rounded-full text-[10px] font-bold shadow-lg`}>
               <span><FaRegStar className="animate-pulse" /></span> {data.tabTitle}
             </div>
