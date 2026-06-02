@@ -8,12 +8,12 @@ import { FiCalendar, FiCopy, FiHeart, FiMail, FiMapPin, FiPhone, FiTruck, FiUser
 import { FaWhatsapp } from 'react-icons/fa';
 import { RiSkullLine } from 'react-icons/ri';
 
-// 🎬 Framer Motion Variants (অ্যানিমেশন কনফিগারেশন)
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.08 } // একটার পর একটা কার্ড স্মুথলি আসবে
+    transition: { staggerChildren: 0.08 } 
   }
 };
 
@@ -133,12 +133,8 @@ const OrderDetailsContent = () => {
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-b from-[#252930] via-[#1a1d22] to-[#121417] text-slate-300 p-4 lg:p-8 font-sans antialiased relative overflow-hidden">
-      
-      {/* Background Glow Spots */}
       <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-[#e3d18d]/3 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute bottom-10 left-10 w-[400px] h-[300px] bg-slate-500/5 blur-[120px] rounded-full pointer-events-none" />
-
-      {/* 🗺️ Header Row */}
       <motion.div 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -162,17 +158,14 @@ const OrderDetailsContent = () => {
         </button>
       </motion.div>
       
-      {/* 📊 Main Content Stagger Wrapper */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         className="space-y-6 relative z-10"
       >
-        {/* Top Cards Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           
-          {/* Tracking ID */}
           <motion.div variants={itemVariants} className="bg-[#2a2f35]/50 backdrop-blur-md p-5 rounded-xl flex flex-col justify-between h-28 border border-slate-700/40 shadow-xl group hover:border-slate-600 transition-all">
             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Tracking ID</p>
             <div className="flex items-center justify-between mt-2 bg-slate-900/40 p-2 rounded-lg border border-slate-800/40">
@@ -183,7 +176,6 @@ const OrderDetailsContent = () => {
             </div>
           </motion.div>
 
-          {/* Payment Status */}
           <motion.div variants={itemVariants} className="bg-[#2a2f35]/50 backdrop-blur-md p-5 rounded-xl flex flex-col justify-between h-28 border border-slate-700/40 shadow-xl group hover:border-slate-600 transition-all">
             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Payment Status</p>
             <div className="mt-2">
@@ -193,7 +185,6 @@ const OrderDetailsContent = () => {
             </div>
           </motion.div>
 
-          {/* System Status */}
           <motion.div variants={itemVariants} className="bg-[#2a2f35]/50 backdrop-blur-md p-5 rounded-xl flex flex-col justify-between h-28 border border-slate-700/40 shadow-xl group hover:border-slate-600 transition-all">
             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">System Status</p>
             <div className="mt-2">
@@ -203,7 +194,6 @@ const OrderDetailsContent = () => {
             </div>
           </motion.div>
 
-          {/* Logistics Flow */}
           <motion.div variants={itemVariants} className="bg-[#2a2f35]/50 backdrop-blur-md p-5 rounded-xl flex flex-col justify-between h-28 border border-slate-700/40 shadow-xl group hover:border-slate-600 transition-all">
             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Logistics Flow</p>
             <div className="mt-2">
@@ -213,7 +203,6 @@ const OrderDetailsContent = () => {
             </div>
           </motion.div>
 
-          {/* Grand Settlement */}
           <motion.div variants={itemVariants} className="bg-[#2a2f35]/50 backdrop-blur-md p-5 rounded-xl flex flex-col justify-between h-28 border border-slate-700/40 shadow-xl col-span-2 lg:col-span-1 group hover:border-slate-600 transition-all">
             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Grand Settlement</p>
             <div className="flex items-baseline gap-1 mt-2">
@@ -223,7 +212,6 @@ const OrderDetailsContent = () => {
           </motion.div>
         </div>
 
-        {/* 👤 Customer & Shipping Information Card */}
         <motion.div 
           variants={itemVariants}
           className="bg-[#2a2f35]/20 backdrop-blur-md rounded-xl overflow-hidden border border-slate-700/40 shadow-2xl"
@@ -234,7 +222,6 @@ const OrderDetailsContent = () => {
           </div>
           
           <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Customer Name */}
             <div className="flex items-center gap-4 bg-slate-900/30 p-3.5 rounded-xl border border-slate-800/40 hover:border-slate-700 transition-all">
               <div className="p-3 bg-slate-800 text-slate-300 rounded-xl border border-slate-700/40"><FiUser size={18} /></div>
               <div>
@@ -242,8 +229,6 @@ const OrderDetailsContent = () => {
                 <span className="text-white font-bold text-sm mt-0.5 block">{order?.customerName || "N/A"}</span>
               </div>
             </div>
-
-            {/* Phone */}
             <div className="flex items-center gap-4 bg-slate-900/30 p-3.5 rounded-xl border border-slate-800/40 hover:border-slate-700 transition-all justify-between group">
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-slate-800 text-slate-300 rounded-xl border border-slate-700/40"><FiPhone size={18} /></div>
@@ -257,7 +242,6 @@ const OrderDetailsContent = () => {
               )}
             </div>
 
-            {/* WhatsApp */}
             <div className="flex items-center gap-4 bg-slate-900/30 p-3.5 rounded-xl border border-slate-800/40 hover:border-slate-700 transition-all justify-between">
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/10"><FaWhatsapp size={18} /></div>
@@ -271,7 +255,6 @@ const OrderDetailsContent = () => {
               )}
             </div>
 
-            {/* Email */}
             <div className="flex items-center gap-4 bg-slate-900/30 p-3.5 rounded-xl border border-slate-800/40 hover:border-slate-700 transition-all">
               <div className="p-3 bg-slate-800 text-slate-300 rounded-xl border border-slate-700/40"><FiMail size={18} /></div>
               <div className="min-w-0 flex-1">
@@ -279,8 +262,6 @@ const OrderDetailsContent = () => {
                 <span className="text-white text-sm mt-0.5 block truncate font-medium">{order?.email || "N/A"}</span>
               </div>
             </div>
-
-            {/* Shipping Method */}
             <div className="flex items-center gap-4 bg-slate-900/30 p-3.5 rounded-xl border border-slate-800/40 hover:border-slate-700 transition-all">
               <div className="p-3 bg-slate-800 text-slate-300 rounded-xl border border-slate-700/40"><FiTruck size={18} /></div>
               <div>
@@ -288,8 +269,6 @@ const OrderDetailsContent = () => {
                 <span className="text-white text-sm font-bold mt-0.5 block capitalize">{order?.deliveryType || "Standard"}</span>
               </div>
             </div>
-
-            {/* Receiver Name */}
             <div className="flex items-center gap-4 bg-slate-900/30 p-3.5 rounded-xl border border-slate-800/40 hover:border-slate-700 transition-all">
               <div className="p-3 bg-slate-800 text-slate-300 rounded-xl border border-slate-700/40"><FiUser size={18} /></div>
               <div>
@@ -297,8 +276,6 @@ const OrderDetailsContent = () => {
                 <span className="text-white text-sm font-bold mt-0.5 block">{order?.receiverName || "N/A"}</span>
               </div>
             </div>
-
-            {/* Full Destination Row */}
             <div className="flex items-center gap-4 bg-slate-900/30 p-4 rounded-xl border border-slate-800/40 hover:border-slate-700 transition-all md:col-span-2 lg:col-span-3">
               <div className="p-3 bg-slate-800 text-slate-300 rounded-xl border border-slate-700/40"><FiMapPin size={18} /></div>
               <div>
@@ -310,8 +287,6 @@ const OrderDetailsContent = () => {
             </div>
           </div>
         </motion.div>
-
-        {/* 📑 Specifications Sheet Card */}
         <motion.div 
           variants={itemVariants}
           className="bg-[#2a2f35]/20 backdrop-blur-md rounded-xl overflow-hidden border border-slate-700/40 shadow-2xl"
@@ -322,7 +297,6 @@ const OrderDetailsContent = () => {
           </div>
           
           <div className="p-6 space-y-4 text-xs">
-            {/* Category */}
             <div className="grid grid-cols-3 py-3 border-b border-slate-800/30 items-center">
               <span className="text-slate-400 font-bold uppercase tracking-wider text-[10px] flex items-center gap-2"><FiLayers size={13} className="text-slate-500" /> Order Category</span>
               <div className="col-span-2">
@@ -331,8 +305,6 @@ const OrderDetailsContent = () => {
                 </span>
               </div>
             </div>
-
-            {/* Wedding Fields layout */}
             {order?.orderType === "wedding" && (
               <div className="space-y-3 bg-slate-900/20 p-4 rounded-xl border border-slate-800/40">
                 <div className="grid grid-cols-3 py-1 items-center">
@@ -344,21 +316,19 @@ const OrderDetailsContent = () => {
                   </div>
                 </div>
                 <div className="grid grid-cols-3 py-2 border-t border-slate-800/30">
-                  <span className="text-slate-400 font-medium">Groom's Lineage</span>
+                  <span className="text-slate-400 font-medium">Grooms Lineage</span>
                   <span className="col-span-2 text-slate-300 font-medium">
                     Father: <span className="text-white font-bold">{order?.groomFather || "N/A"}</span> <span className="text-slate-600 mx-1">|</span> Mother: <span className="text-white font-bold">{order?.groomMother || "N/A"}</span>
                   </span>
                 </div>
                 <div className="grid grid-cols-3 py-2 border-t border-slate-800/30">
-                  <span className="text-slate-400 font-medium">Bride's Lineage</span>
+                  <span className="text-slate-400 font-medium">Brides Lineage</span>
                   <span className="col-span-2 text-slate-300 font-medium">
                     Father: <span className="text-white font-bold">{order?.brideFather || "N/A"}</span> <span className="text-slate-600 mx-1">|</span> Mother: <span className="text-white font-bold">{order?.brideMother || "N/A"}</span>
                   </span>
                 </div>
               </div>
             )}
-
-            {/* Death Specific Fields */}
             {order?.orderType === "death" && (
               <div className="space-y-3 bg-slate-900/20 p-4 rounded-xl border border-slate-800/40">
                 <div className="grid grid-cols-3 py-1 items-center">

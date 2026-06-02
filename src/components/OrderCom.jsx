@@ -13,23 +13,19 @@ const OrderCom = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("All");
-  
-  // 🛠️ তারিখের সংখ্যা (যেমন: "23") রাখার জন্য স্টেট
+
   const [selectedDate, setSelectedDate] = useState("");
 
   const statuses = ["All", "NEW", "PROCESSING", "ON HOLD", "COMPLETED", "CANCELLED", "REFUNDED"];
-
-  // 🛠️ মঙ্গোডিবি _id থেকে লোকাল ডেট (YYYY-MM-DD) বের করার হেল্পার ফাংশন
   const getLocalDateFromId = (id) => {
     if (!id || id.length !== 24) return "N/A";
     try {
       const timestamp = parseInt(id.substring(0, 8), 16) * 1000;
       const createdDate = new Date(timestamp);
       
-      // বাংলাদেশের টাইমজোন অফসেট অ্যাডজাস্টমেন্ট
       const offset = createdDate.getTimezoneOffset() * 60000;
       const localISOTime = new Date(createdDate.getTime() - offset).toISOString();
-      return localISOTime.split('T')[0]; // রিটার্ন করবে: YYYY-MM-DD
+      return localISOTime.split('T')[0];
     } catch (e) {
       return "N/A";
     }
@@ -146,7 +142,6 @@ const OrderCom = () => {
     }).length;
   };
 
-  // 🛠️ মেইন ফিল্টারিং লজিক (ট্যাব, সার্চ এবং নির্দিষ্ট তারিখের সংখ্যা ফিল্টার)
   useEffect(() => {
     let result = [...orders];
     
@@ -299,10 +294,10 @@ Status: ${order.status?.toUpperCase() || "PENDING"}`;
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search name, phone, district, date..." 
-            className="w-full h-10 bg-black border border-neutral-800 rounded-xl pl-10 pr-4 text-sm text-white outline-none focus:border-neutral-700 transition-all placeholder-neutral-700"
+            className="w-full h-10 bg-black border border-neutral-400 rounded-xl pl-10 pr-4 text-sm text-white outline-none focus:border-neutral-700 transition-all placeholder-neutral-700"
           />
         </div>
-        <div className="lg:col-span-4 flex items-center justify-between bg-black border border-neutral-800 rounded-xl px-3 h-10 gap-2 relative">
+        <div className="lg:col-span-4 flex items-center justify-between bg-black border border-neutral-400 rounded-xl px-3 h-10 gap-2 relative">
           <div className="flex items-center gap-2 w-full">
             <span className="text-[10px] text-neutral-500 font-mono uppercase shrink-0">Filter Date:</span>
             <input 
